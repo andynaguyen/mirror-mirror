@@ -1,11 +1,32 @@
 import moment from 'moment';
 import * as React from 'react';
+import styled from 'styled-components';
 import withRefresh from '../refresher';
 
 const DATE_FORMAT = 'MMM Do, YYYY';
 const DAY_FORMAT = 'dddd';
 const TIME_FORMAT = 'hh:mm:ss';
 const REFRESH_INTERVAL = 1000;
+
+const Date = styled.div`
+  display: flex;
+  font-size: 18px;
+  justify-content: flex-end;
+`;
+
+const Day = styled.div`
+  display: flex;
+  font-size: 18px;
+  justify-content: flex-end;
+`;
+
+const Time = styled.div`
+  display: flex;
+  font-size: 48px;
+  font-family: 'Raleway';
+  justify-content: flex-end;
+  margin-bottom: 12px;
+`;
 
 interface ClockProps {
   date: string;
@@ -17,7 +38,9 @@ interface ClockProps {
 const Clock: React.SFC<ClockProps> = ({ date, day, time, visible }) =>
   visible ? (
     <div>
-      {date} {time} {day} {visible}
+      <Time>{time}</Time>
+      <Day>{day}</Day>
+      <Date>{date}</Date>
     </div>
   ) : null;
 
