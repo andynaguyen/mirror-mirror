@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import Clock from './components/Clock';
 
 const Title = styled.div`
   font-size: 20px;
@@ -7,7 +8,7 @@ const Title = styled.div`
 
 class Layout extends React.Component {
   public render() {
-    return <Title>Layout</Title>;
+    return <Clock visible />;
   }
 }
 
