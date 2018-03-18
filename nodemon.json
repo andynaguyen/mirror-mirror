@@ -1,0 +1,7 @@
+{
+  "restartable": "rs",
+  "ignore": [".git", "node_modules/**/node_modules", "*.test.ts"],
+  "exec": "yarn reload",
+  "watch": ["client", "server"],
+  "ext": "ts tsx json html css"
+}
