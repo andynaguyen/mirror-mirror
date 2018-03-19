@@ -3,8 +3,6 @@ import { Request, Response } from 'express';
 
 type RouteHandler = (req: Request, res: Response) => void;
 
-const FORECAST_API = 'https://api.darksky.net/forecast/';
-
 /**
  * Return the 'index.html' file.
  */
@@ -18,10 +16,10 @@ const index: RouteHandler = (req, res) => {
  */
 const getForecast: RouteHandler = async (req, res) => {
   const { DARK_SKY_KEY, LATITUDE, LONGITUDE } = process.env;
-  const endpoint = `${FORECAST_API}${DARK_SKY_KEY}/${LATITUDE},${LONGITUDE}`;
+  const query = `https://api.darksky.net/forecast/${DARK_SKY_KEY}/${LATITUDE},${LONGITUDE}`;
 
   try {
-    const forecast = await axios.get(endpoint);
+    const forecast = await axios.get(query);
     const { currently, hourly } = forecast.data;
     res.json({
       icon: currently.icon,

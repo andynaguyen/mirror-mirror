@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import Clock from './components/Clock';
+import Forecast from './components/Forecast';
 
 const Title = styled.div`
   font-size: 20px;
@@ -26,7 +27,9 @@ class Layout extends React.Component {
   public render() {
     return (
       <Container>
-        <SideColumn />
+        <SideColumn>
+          <Forecast visible />
+        </SideColumn>
         <CenterColumn />
         <SideColumn>
           <Clock visible />

@@ -28,8 +28,7 @@
     "styled-components": "^3.2.3"
   },
   "scripts": {
-    "build:client":
-      "parcel build client/index.html --public-url ./ --out-dir dist/static",
+    "build:client": "parcel build client/index.html --public-url ./ --out-dir dist/static",
     "build:server": "tsc",
     "build": "yarn build:client && yarn build:server",
     "clean": "rm -rf .cache && rm -rf dist",

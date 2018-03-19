@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Forecast /> should render the contents of the forecast component 1`] = `
+Array [
+  .c0 {
+  font-family: 'Raleway';
+  font-size: 48px;
+  float: left;
+}
+
+.c1 {
+  font-size: 64px;
+  margin-left: 30px;
+}
+
+<div>
+    <div
+      className="c0"
+    >
+      0
+       
+      <i
+        className="wi wi-fahrenheit"
+      />
+    </div>
+    <i
+      className="wi wi-na c1"
+    />
+  </div>,
+  .c0 {
+  font-size: 20px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+<div>
+    <span
+      className="c0"
+    >
+      N/A
+    </span>
+  </div>,
+  .c1 {
+  font-family: 'Raleway';
+}
+
+.c0 {
+  font-size: 24px;
+  margin-right: 12px;
+}
+
+<div>
+    <i
+      className="wi wi-umbrella c0"
+    />
+    <span
+      className="c1"
+    >
+      0
+    </span>
+    %
+  </div>,
+  .c1 {
+  font-family: 'Raleway';
+}
+
+.c0 {
+  font-size: 24px;
+  margin-right: 12px;
+}
+
+<div>
+    <i
+      className="wi wi-strong-wind c0"
+    />
+    <span
+      className="c1"
+    >
+      0
+    </span>
+     mph
+  </div>,
+]
+`;

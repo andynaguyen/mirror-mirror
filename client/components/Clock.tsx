@@ -37,11 +37,11 @@ interface ClockProps {
 
 const Clock: React.SFC<ClockProps> = ({ date, day, time, visible }) =>
   visible ? (
-    <div>
+    <>
       <Time>{time}</Time>
       <Day>{day}</Day>
       <Date>{date}</Date>
-    </div>
+    </>
   ) : null;
 
 /**
