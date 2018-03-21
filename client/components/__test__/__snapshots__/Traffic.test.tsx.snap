@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Clock /> should render the contents of the traffic component 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.c1 {
+  color: white;
+  font-size: 22px;
+  width: 36px;
+}
+
+<div
+  className="c0"
+>
+  <i
+    className="icon-directions_car c1"
+  />
+  N/A
+   - 
+  N/A
+</div>
+`;

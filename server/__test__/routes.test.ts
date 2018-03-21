@@ -1,10 +1,9 @@
 import axios from 'axios';
 import * as express from 'express';
-import { getForecast, index } from '../routes';
+import { getForecast, getTraffic, index } from '../routes';
 
 // Mocks
-const mockAxiosGet = (data: object) =>
-  jest.fn((_) => Promise.resolve({ data }));
+const mockAxiosGet = (data: object) => jest.fn((_) => Promise.resolve({ data }));
 
 class MockResponse {
   public json = jest.fn();
@@ -76,5 +75,65 @@ describe('routes/getForecast', () => {
 
     expect(axios.get).toHaveBeenCalledWith(endpoint);
     expect(mockRes.send).toHaveBeenCalled();
+  });
+});
+
+describe('routes/getTraffic', () => {
+  const endpoint =
+    'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=destination&key=googleMapsKey&origins=origin&units=imperial'; // tslint:disable-line
+  beforeEach(() => {
+    mockRes = new MockResponse();
+    process.env = {
+      DESTINATION: 'destination',
+      GOOGLE_MAPS_KEY: 'googleMapsKey',
+      ORIGIN: 'origin',
+    };
+  });
+
+  it('should get traffic with successful response', async () => {
+    axios.get = mockAxiosGet({
+      rows: [
+        {
+          elements: [
+            {
+              distance: { text: 'distance' },
+              duration: { text: 'duration' },
+            },
+          ],
+        },
+      ],
+      status: 'OK',
+    });
+    await getTraffic(null, mockRes);
+
+    expect(axios.get).toHaveBeenCalledWith(endpoint);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      distance: 'distance',
+      duration: 'duration',
+    });
+  });
+
+  it('should handle error when receiving an unsuccessful response', async () => {
+    axios.get = mockAxiosGet({ status: 'Error' });
+    await getTraffic(null, mockRes);
+
+    expect(axios.get).toHaveBeenCalledWith(endpoint);
+    expect(mockRes.send).toHaveBeenCalledWith(Error('Non-OK status returned from query.'));
+  });
+
+  it('should handle error when receiving malformed data', async () => {
+    axios.get = mockAxiosGet({ status: 'OK', rows: [] });
+    await getTraffic(null, mockRes);
+
+    expect(axios.get).toHaveBeenCalledWith(endpoint);
+    expect(mockRes.send).toHaveBeenCalled();
+  });
+
+  it('should handle error while requesting traffic', async () => {
+    axios.get = jest.fn((_) => Promise.reject('Error'));
+    await getTraffic(null, mockRes);
+
+    expect(axios.get).toHaveBeenCalledWith(endpoint);
+    expect(mockRes.send).toHaveBeenCalledWith('Error');
   });
 });

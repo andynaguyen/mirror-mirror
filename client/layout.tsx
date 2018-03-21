@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import Clock from './components/Clock';
 import Forecast from './components/Forecast';
+import Traffic from './components/Traffic';
 
 const Title = styled.div`
   font-size: 20px;
@@ -33,6 +34,7 @@ class Layout extends React.Component {
         <CenterColumn />
         <SideColumn>
           <Clock visible />
+          <Traffic visible />
         </SideColumn>
       </Container>
     );

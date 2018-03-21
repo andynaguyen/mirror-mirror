@@ -3,6 +3,7 @@
     "outDir": "dist",
     "target": "es6",
     "jsx": "react",
+    "lib": ["es2017"],
     "module": "commonjs",
     "noImplicitAny": true,
     "allowSyntheticDefaultImports": true
