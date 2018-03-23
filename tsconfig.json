@@ -3,7 +3,7 @@
     "outDir": "dist",
     "target": "es6",
     "jsx": "react",
-    "lib": ["es2017"],
+    "lib": ["es2017", "esnext.asynciterable"],
     "module": "commonjs",
     "noImplicitAny": true,
     "allowSyntheticDefaultImports": true

@@ -1,15 +1,38 @@
 import axios from 'axios';
 import * as React from 'react';
+import { graphql, QueryProps } from 'react-apollo';
+import gql from 'graphql-tag';
 import styled from 'styled-components';
 import withRefresh from '../refresher';
 
+const query = gql`
+  query {
+    traffic {
+      distance
+      duration
+    }
+  }
+`;
+
 const REFRESH_INTERVAL = 1000 * 60 * 15; // 15 min
 
-interface TrafficProps {
-  distance: string;
-  duration: string;
+interface TrafficProps extends ApolloWrapperProps {
+  data: QueryProps<TrafficData>;
+  traffic: TrafficData;
+}
+
+interface ApolloWrapperProps {
   visible: boolean;
 }
+
+type TrafficData = {
+  distance: string;
+  duration: string;
+};
+
+type Response = {
+  traffic: TrafficData;
+};
 
 const Container = styled.div`
   display: flex;
@@ -23,11 +46,11 @@ const CarIcon = styled.i`
   width: 36px;
 `;
 
-const Traffic: React.SFC<TrafficProps> = ({ distance, duration, visible }) => {
+const Traffic: React.SFC<TrafficProps> = ({ traffic, visible }) => {
   return visible ? (
     <Container>
       <CarIcon className="icon-directions_car" />
-      {distance} - {duration}
+      {traffic.distance} - {traffic.duration}
     </Container>
   ) : null;
 };
@@ -37,22 +60,22 @@ const defaultState = {
   duration: 'N/A',
 };
 
-const options = {
-  defaultState,
-  interval: REFRESH_INTERVAL,
-  refresh: async () => {
-    try {
-      const traffic = await axios.get('/api/traffic');
-      return traffic.data;
-    } catch (error) {
-      console.error(error);
-      return defaultState;
-    }
-  },
-};
-
 /**
  * A component showing basic traffic conditions updated at every 15 minutes.
  */
-const EnhancedTraffic = withRefresh(options, Traffic);
+const EnhancedTraffic: React.ComponentClass<ApolloWrapperProps> = graphql<Response, ApolloWrapperProps>(query, {
+  options: {
+    pollInterval: REFRESH_INTERVAL,
+    fetchPolicy: 'network-only',
+  },
+  props: ({ data: { traffic, error } }) =>
+    error
+      ? { traffic: defaultState }
+      : {
+          traffic: {
+            distance: traffic && traffic.distance,
+            duration: traffic && traffic.duration,
+          },
+        },
+})(Traffic);
 export default EnhancedTraffic;

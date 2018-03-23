@@ -1,4 +1,4 @@
-import { buildQuery } from '../routes';
+import { buildQuery } from '../util';
 
 describe('buildQuery', () => {
   it('should build query with params', () => {
