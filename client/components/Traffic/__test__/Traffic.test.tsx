@@ -3,15 +3,17 @@ import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import Traffic from '../Traffic';
 
-describe('<Clock />', () => {
+describe('<Traffic />', () => {
   it('should render the contents of the traffic component', () => {
-    const component = renderer.create(<Traffic visible />);
+    const trafficData = { distance: 'N/A', duration: 'N/A' };
+    const component = renderer.create(<Traffic traffic={trafficData} visible />);
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('should render nothing', () => {
-    const component = renderer.create(<Traffic visible={false} />);
+    const trafficData = { distance: 'N/A', duration: 'N/A' };
+    const component = renderer.create(<Traffic traffic={trafficData} visible={false} />);
     const tree = component.toJSON();
     expect(tree).toBeNull();
   });
