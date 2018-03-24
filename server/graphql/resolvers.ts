@@ -1,11 +1,14 @@
 import axios from 'axios';
 import { buildQuery } from '../util';
+import { ForecastData, TrafficData } from '../../common/types';
+
+type Resolver<T> = () => Promise<T>;
 
 /**
  * Gets forecast data for the latitude and longitude (from the environment variables)
  * using the Dark Sky API.
  */
-const getForecast = async () => {
+const getForecast: Resolver<ForecastData> = async () => {
   const { DARK_SKY_KEY, LATITUDE, LONGITUDE } = process.env;
   const query = `https://api.darksky.net/forecast/${DARK_SKY_KEY}/${LATITUDE},${LONGITUDE}`;
 
@@ -24,7 +27,7 @@ const getForecast = async () => {
  * Gets traffic data for the origin and destination (from the environment variables)
  * using the Google Maps API.
  */
-const getTraffic = async () => {
+const getTraffic: Resolver<TrafficData> = async () => {
   const { DESTINATION, GOOGLE_MAPS_KEY, ORIGIN } = process.env;
   const params = {
     destinations: DESTINATION,
