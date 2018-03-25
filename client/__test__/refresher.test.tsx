@@ -49,14 +49,14 @@ describe('refresher', () => {
     // check if initial refresh was called
     expect(mockRefresh).toHaveBeenCalledTimes(1);
     // check counter after initial refresh
-    expect(instance.state.counter).toBe(11);
+    expect(instance.state.data.counter).toBe(11);
 
     jest.advanceTimersByTime(5000);
     expect(mockRefresh).toHaveBeenCalledTimes(2);
-    expect(instance.state.counter).toBe(12);
+    expect(instance.state.data.counter).toBe(12);
 
     jest.advanceTimersByTime(5000);
     expect(mockRefresh).toHaveBeenCalledTimes(3);
-    expect(instance.state.counter).toBe(13);
+    expect(instance.state.data.counter).toBe(13);
   });
 });

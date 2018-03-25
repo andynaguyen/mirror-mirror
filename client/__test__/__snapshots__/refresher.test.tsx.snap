@@ -7,7 +7,6 @@ exports[`refresher should render the wrapped component 1`] = `
   </h1>
   <p>
     This is the current count: 
-    9000
     .
   </p>
 </div>

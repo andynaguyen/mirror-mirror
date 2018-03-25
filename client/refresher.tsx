@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-type RefreshFunc = () => Promise<object>;
+type RefreshFunc<T> = () => Promise<T>;
 
-interface RefreshOptions {
-  defaultState: object;
+export interface RefreshOptions<T> {
+  defaultState: T;
   interval: number;
-  refresh: RefreshFunc;
+  refresh: RefreshFunc<T>;
 }
 
 type Component = React.StatelessComponent | React.ComponentClass;
@@ -20,12 +20,14 @@ type Component = React.StatelessComponent | React.ComponentClass;
  *     (must return a promise resolving to an object)
  * @param WrappedComponent react component to wrap
  */
-const withRefresh = (options: RefreshOptions, WrappedComponent: Component) => {
+const withRefresh = (options: RefreshOptions<any>, WrappedComponent: Component) => {
   return class extends React.Component<any, any> {
     private timer: number;
     constructor(props: any) {
       super(props);
-      this.state = options.defaultState;
+      this.state = {
+        data: options.defaultState,
+      };
     }
 
     public componentDidMount() {
@@ -41,10 +43,10 @@ const withRefresh = (options: RefreshOptions, WrappedComponent: Component) => {
 
     public update = async () => {
       try {
-        const state = await options.refresh();
-        this.setState(state);
+        const data = await options.refresh();
+        this.setState({ data });
       } catch {
-        this.setState(options.defaultState);
+        this.setState({ data: options.defaultState });
       }
     }; // tslint:disable-line
 
