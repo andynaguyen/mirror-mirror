@@ -38,7 +38,7 @@
     "build:server": "tsc",
     "build": "yarn build:client && yarn build:server",
     "clean": "rm -rf .cache && rm -rf dist",
-    "reload": "yarn build && node -r dotenv/config dist/server.js",
+    "reload": "yarn build && node -r dotenv/config dist/server/app.js",
     "start": "nodemon",
     "start:static": "parcel client/index.html -p 3000",
     "test": "jest"
@@ -48,12 +48,6 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"]
   }
 }

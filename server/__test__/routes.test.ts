@@ -15,8 +15,7 @@ let mockRes;
 describe('routes/index', () => {
   it('should send index.html', () => {
     mockRes = new MockResponse();
-    index(null, mockRes);
-    expect(mockRes.sendFile).toHaveBeenCalled();
-    expect(mockRes.sendFile).toHaveBeenCalledWith('./index.html');
+    index('mock/')(null, mockRes);
+    expect(mockRes.sendFile).toHaveBeenCalledWith('mock/index.html');
   });
 });

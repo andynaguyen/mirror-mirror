@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getForecast, getTraffic } from '../resolvers';
+import { getForecast, getTraffic, getNewsFeed } from '../resolvers';
 
 const mockAxiosGet = (data: object) => jest.fn((_) => Promise.resolve({ data }));
 
@@ -76,6 +76,52 @@ describe('getTraffic', () => {
 
     try {
       await getTraffic();
+    } catch (error) {
+      expect(error).toEqual(Error('Non-OK status returned from query.'));
+    }
+  });
+});
+
+describe('getNewsFeed', () => {
+  const endpoint = 'https://newsapi.org/v2/top-headlines?sources=google-news&apiKey=key';
+  beforeEach(() => {
+    process.env = {
+      NEWS_API_KEY: 'key',
+    };
+  });
+
+  it('should get news feed data with successful response', async () => {
+    axios.get = mockAxiosGet({
+      status: 'ok',
+      articles: [
+        {
+          title: 'title1',
+          description: 'desc1',
+        },
+        {
+          title: 'title2',
+          description: 'desc2',
+        },
+      ],
+    });
+
+    const newsFeedData = await getNewsFeed();
+    expect(axios.get).toHaveBeenCalledWith(endpoint);
+    expect(newsFeedData.feed).toContainEqual({
+      title: 'title1',
+      description: 'desc1',
+    });
+    expect(newsFeedData.feed).toContainEqual({
+      title: 'title2',
+      description: 'desc2',
+    });
+  });
+
+  it('should throw error if response is not ok', async () => {
+    axios.get = mockAxiosGet({ status: 'error' });
+
+    try {
+      await getNewsFeed();
     } catch (error) {
       expect(error).toEqual(Error('Non-OK status returned from query.'));
     }

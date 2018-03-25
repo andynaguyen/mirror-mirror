@@ -1,4 +1,4 @@
-import { GraphQLString, GraphQLSchema, GraphQLObjectType } from 'graphql';
+import { GraphQLString, GraphQLSchema, GraphQLObjectType, GraphQLList } from 'graphql';
 
 const Forecast = new GraphQLObjectType({
   name: 'ForecastQuery',
@@ -19,4 +19,21 @@ const Traffic = new GraphQLObjectType({
   },
 });
 
-export { Forecast, Traffic };
+const Headline = new GraphQLObjectType({
+  name: 'Headline',
+  fields: {
+    title: { type: GraphQLString },
+    description: { type: GraphQLString },
+  },
+});
+
+const NewsFeed = new GraphQLObjectType({
+  name: 'NewsQuery',
+  fields: {
+    feed: {
+      type: new GraphQLList(Headline),
+    },
+  },
+});
+
+export { Forecast, Traffic, NewsFeed };

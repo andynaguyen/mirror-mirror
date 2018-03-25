@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { buildQuery } from '../util';
-import { ForecastData, TrafficData } from '../../common/types';
+import { ForecastData, TrafficData, NewsFeedData, Headline } from '../../common/types';
 
 type Resolver<T> = () => Promise<T>;
 
@@ -39,15 +39,32 @@ const getTraffic: Resolver<TrafficData> = async () => {
 
   const traffic = await axios.get(query);
   const { rows, status } = traffic.data;
-  if (status === 'OK') {
-    const { distance, duration } = rows[0].elements[0];
-    return {
-      distance: distance.text,
-      duration: duration.text,
-    };
-  } else {
+  if (status !== 'OK') {
     throw new Error('Non-OK status returned from query.');
   }
+  const { distance, duration } = rows[0].elements[0];
+  return {
+    distance: distance.text,
+    duration: duration.text,
+  };
 };
 
-export { getForecast, getTraffic };
+const getNewsFeed: Resolver<NewsFeedData> = async () => {
+  const { NEWS_API_KEY } = process.env;
+  const params = {
+    sources: 'google-news',
+    apiKey: NEWS_API_KEY,
+  };
+  const query = buildQuery('https://newsapi.org/v2/top-headlines?', params);
+
+  const newsFeed = await axios.get(query);
+  const { articles, status } = newsFeed.data;
+  if (status !== 'ok') {
+    throw new Error('Non-OK status returned from query.');
+  }
+
+  const headlines = articles.slice(0, 5).map(({ title, description }: Headline) => ({ title, description }));
+  return { feed: headlines };
+};
+
+export { getForecast, getTraffic, getNewsFeed };

@@ -1,6 +1,6 @@
 import { GraphQLSchema, GraphQLObjectType } from 'graphql';
-import { Forecast, Traffic } from './types';
-import { getForecast, getTraffic } from './resolvers';
+import { Forecast, Traffic, NewsFeed } from './types';
+import { getForecast, getTraffic, getNewsFeed } from './resolvers';
 
 type GraphQLQuery = {
   type: GraphQLObjectType;
@@ -32,6 +32,10 @@ const queries = {
   forecast: withLogging({
     type: Forecast,
     resolve: getForecast,
+  }),
+  newsFeed: withLogging({
+    type: NewsFeed,
+    resolve: getNewsFeed,
   }),
 };
 

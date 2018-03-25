@@ -10,3 +10,12 @@ export interface ForecastData {
   temperature: number;
   wind: number;
 }
+
+export interface Headline {
+  title: string;
+  description: string;
+}
+
+export interface NewsFeedData {
+  feed: Headline[];
+}

@@ -11,7 +11,7 @@ const query = gql`
   }
 `;
 
-export default graphql<Response, ApolloWrapperProps>(query, {
+export default graphql<TrafficResponse, ApolloWrapperProps>(query, {
   options: {
     pollInterval: 1000 * 60 * 15, // 15 min
     fetchPolicy: 'network-only',

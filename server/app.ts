@@ -5,9 +5,10 @@ import schema from './graphql/schema';
 import { index } from './routes';
 
 const port = process.env.PORT || '3000';
-
 const app = express();
-app.use(express.static(join(__dirname, 'static')));
+
+const staticPath = join(__dirname, '../static');
+app.use(express.static(staticPath));
 
 // GraphQL
 app.use(
@@ -21,4 +22,4 @@ app.use(
 // Routes
 app.get('/', index);
 
-app.listen(port, () => console.log(`Listening on port ${port}.`));
+app.listen(port, () => console.log(`Listening at http://localhost:${port}/`));
