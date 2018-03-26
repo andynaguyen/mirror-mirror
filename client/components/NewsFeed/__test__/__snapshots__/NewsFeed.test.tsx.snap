@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NewsFeed /> should render the contents of the news feed component 1`] = `
+.c0 {
+  padding: 0;
+}
+
+.c1 {
+  font-size: 14px;
+}
+
+<ul
+  className="c0"
+>
+  <li
+    className="c1"
+  >
+    duck
+  </li>
+  <li
+    className="c1"
+  >
+    duck
+  </li>
+  <li
+    className="c1"
+  >
+    goose
+  </li>
+</ul>
+`;

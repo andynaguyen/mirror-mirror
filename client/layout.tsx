@@ -3,10 +3,7 @@ import styled from 'styled-components';
 import Clock from './components/Clock';
 import Forecast from './components/Forecast';
 import Traffic from './components/Traffic';
-
-const Title = styled.div`
-  font-size: 20px;
-`;
+import NewsFeed from './components/NewsFeed';
 
 const Container = styled.div`
   display: flex;
@@ -14,11 +11,11 @@ const Container = styled.div`
 `;
 
 const SideColumn = styled.div`
-  width: 37.5%;
+  width: 40%;
 `;
 
 const CenterColumn = styled.div`
-  width: 25%;
+  width: 20%;
 `;
 
 /**
@@ -30,6 +27,7 @@ class Layout extends React.Component {
       <Container>
         <SideColumn>
           <Forecast visible />
+          <NewsFeed visible />
         </SideColumn>
         <CenterColumn />
         <SideColumn>

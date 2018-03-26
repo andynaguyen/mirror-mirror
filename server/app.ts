@@ -20,6 +20,6 @@ app.use(
 );
 
 // Routes
-app.get('/', index);
+app.get('/', index(staticPath));
 
 app.listen(port, () => console.log(`Listening at http://localhost:${port}/`));

@@ -63,7 +63,7 @@ const getNewsFeed: Resolver<NewsFeedData> = async () => {
     throw new Error('Non-OK status returned from query.');
   }
 
-  const headlines = articles.slice(0, 5).map(({ title, description }: Headline) => ({ title, description }));
+  const headlines = articles.slice(0, 4).map(({ title, description }: Headline) => ({ title, description }));
   return { feed: headlines };
 };
 
