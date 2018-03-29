@@ -30,9 +30,7 @@ const Headline = new GraphQLObjectType({
 const NewsFeed = new GraphQLObjectType({
   name: 'NewsQuery',
   fields: {
-    feed: {
-      type: new GraphQLList(Headline),
-    },
+    feed: { type: new GraphQLList(Headline) },
   },
 });
 
