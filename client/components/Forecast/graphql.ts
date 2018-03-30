@@ -14,18 +14,29 @@ const query = gql`
   }
 `;
 
+const defaultState = {
+  icon: 'default',
+  precipitation: -1,
+  summary: 'N/A',
+  temperature: -1,
+  wind: -1,
+};
+
 export default graphql<ForecastResponse, ApolloWrapperProps>(query, {
   options: {
     pollInterval: 1000 * 60 * 60, // 1 hour
     fetchPolicy: 'network-only',
   },
   props: ({ data: { forecast, error } }) => ({
-    forecast: {
-      icon: error || !forecast ? 'default' : forecast.icon,
-      precipitation: error || !forecast ? -1 : forecast.precipitation,
-      summary: error || !forecast ? 'N/A' : forecast.summary,
-      temperature: error || !forecast ? -1 : forecast.temperature,
-      wind: error || !forecast ? -1 : forecast.wind,
-    },
+    forecast:
+      error || !forecast
+        ? defaultState
+        : {
+            icon: forecast.icon,
+            precipitation: forecast.precipitation,
+            summary: forecast.summary,
+            temperature: forecast.temperature,
+            wind: forecast.wind,
+          },
   }),
 });

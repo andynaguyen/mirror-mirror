@@ -7,33 +7,19 @@ type GraphQLQuery = {
   resolve: () => Promise<object>;
 };
 
-const withLogging = ({ type, resolve }: GraphQLQuery): GraphQLQuery => ({
-  type,
-  resolve: async () => {
-    try {
-      const data = await resolve();
-      console.log(`GraphQL query [${type}] result:  `, data);
-      return data;
-    } catch (error) {
-      console.log(`GraphQL query [${type}] error:  `, error);
-      return {};
-    }
-  },
-});
-
 const queries = {
-  traffic: withLogging({
+  traffic: {
     type: Traffic,
     resolve: getTraffic,
-  }),
-  forecast: withLogging({
+  },
+  forecast: {
     type: Forecast,
     resolve: getForecast,
-  }),
-  newsFeed: withLogging({
+  },
+  newsFeed: {
     type: NewsFeed,
     resolve: getNewsFeed,
-  }),
+  },
 };
 
 export default new GraphQLSchema({

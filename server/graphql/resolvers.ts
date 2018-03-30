@@ -1,4 +1,5 @@
 import axios from 'axios';
+import createDebug from 'debug';
 import { buildQuery } from '../util';
 import { ForecastData, TrafficData, NewsFeedData, Headline } from '../../common/types';
 
@@ -14,11 +15,14 @@ interface Coordinates {
  * @param address address to find coordinates of
  */
 const getCoordinates = async (address: string) => {
+  const debug = createDebug('graphql:getCoordinates');
+  debug('start');
   const { GEOCODING_API_KEY } = process.env;
   const params = {
     key: GEOCODING_API_KEY,
     address,
   };
+  debug('params (no key):  ', { address });
   const query = buildQuery('https://maps.googleapis.com/maps/api/geocode/json?', params);
 
   const coordinates = await axios.get(query);
@@ -27,10 +31,13 @@ const getCoordinates = async (address: string) => {
     throw new Error('Non-OK status returned from query.');
   }
   const { lat, lng } = results[0].geometry.location;
-  return {
+  const result = {
     latitude: lat,
     longitude: lng,
   };
+  debug('result:  ', results[0].geometry.location);
+  debug('end');
+  return result;
 };
 
 /**
@@ -38,19 +45,26 @@ const getCoordinates = async (address: string) => {
  * using the Dark Sky API.
  */
 const getForecast: Resolver<ForecastData> = async () => {
+  const debug = createDebug('graphql:getForecast');
+  debug('start');
   const { DARK_SKY_KEY, ADDRESS } = process.env;
   const { latitude, longitude } = await getCoordinates(ADDRESS);
+  debug('params (no key):  ', { latitude, longitude });
   const query = `https://api.darksky.net/forecast/${DARK_SKY_KEY}/${latitude},${longitude}`;
 
   const forecast = await axios.get(query);
   const { currently, hourly } = forecast.data;
-  return {
+  const result = {
     icon: currently.icon,
     precipitation: currently.precipProbability,
     summary: hourly.summary,
     temperature: Math.floor(currently.temperature),
     wind: currently.windSpeed,
   };
+
+  debug('result:  ', result);
+  debug('end');
+  return result;
 };
 
 /**
@@ -58,6 +72,8 @@ const getForecast: Resolver<ForecastData> = async () => {
  * using the Google Maps Distance Matrix API.
  */
 const getTraffic: Resolver<TrafficData> = async () => {
+  const debug = createDebug('graphql:getTraffic');
+  debug('start');
   const { DESTINATION, DISTANCE_MATRIX_API_KEY, ADDRESS } = process.env;
   const params = {
     destinations: DESTINATION,
@@ -65,6 +81,11 @@ const getTraffic: Resolver<TrafficData> = async () => {
     origins: ADDRESS,
     units: 'imperial',
   };
+  debug('params (no key):  ', {
+    destinations: DESTINATION,
+    origins: ADDRESS,
+    units: 'imperial',
+  });
   const query = buildQuery('https://maps.googleapis.com/maps/api/distancematrix/json?', params);
 
   const traffic = await axios.get(query);
@@ -73,21 +94,27 @@ const getTraffic: Resolver<TrafficData> = async () => {
     throw new Error('Non-OK status returned from query.');
   }
   const { distance, duration } = rows[0].elements[0];
-  return {
+  const result = {
     distance: distance.text,
     duration: duration.text,
   };
+  debug('result:  ', result);
+  debug('end');
+  return result;
 };
 
 /**
  * Gets the headlines for trending news articles from Google News using the News API.
  */
 const getNewsFeed: Resolver<NewsFeedData> = async () => {
+  const debug = createDebug('graphql:getNewsFeed');
+  debug('start');
   const { NEWS_API_KEY } = process.env;
   const params = {
     sources: 'google-news',
     apiKey: NEWS_API_KEY,
   };
+  debug('params (no key):  ', { sources: 'google-news' });
   const query = buildQuery('https://newsapi.org/v2/top-headlines?', params);
 
   const newsFeed = await axios.get(query);
@@ -97,7 +124,10 @@ const getNewsFeed: Resolver<NewsFeedData> = async () => {
   }
 
   const headlines = articles.slice(0, 4).map(({ title, description }: Headline) => ({ title, description }));
-  return { feed: headlines };
+  const result = { feed: headlines };
+  debug('result:  ', result);
+  debug('end');
+  return result;
 };
 
 export { getForecast, getTraffic, getNewsFeed, getCoordinates };

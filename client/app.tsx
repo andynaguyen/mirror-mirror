@@ -12,6 +12,7 @@ const apollo = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+window.localStorage.setItem('debug', process.env.DEBUG);
 ReactDOM.render(
   <ApolloProvider client={apollo}>
     <Layout />
