@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import * as SocketIOClient from 'socket.io-client';
 import Clock from './components/Clock';
 import Forecast from './components/Forecast';
 import Traffic from './components/Traffic';
@@ -22,6 +23,11 @@ const CenterColumn = styled.div`
  * The layout of the mirror.
  */
 class Layout extends React.Component {
+  public componentWillMount() {
+    const socket = SocketIOClient();
+    socket.on('message', (message) => console.log('message:', message));
+  }
+
   public render() {
     return (
       <Container>

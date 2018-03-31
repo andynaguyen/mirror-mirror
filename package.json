@@ -22,6 +22,8 @@
     "@types/graphql": "^0.12.5",
     "@types/react": "^16.0.38",
     "@types/react-dom": "^16.0.4",
+    "@types/socket.io": "^1.4.32",
+    "@types/socket.io-client": "^1.4.32",
     "apollo-client-preset": "^1.0.8",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
@@ -33,6 +35,8 @@
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",
     "react-dom": "^16.2.0",
+    "socket.io": "^2.0.4",
+    "socket.io-client": "^2.1.0",
     "styled-components": "^3.2.3"
   },
   "scripts": {
