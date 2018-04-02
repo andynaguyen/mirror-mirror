@@ -3,7 +3,7 @@ import createDebug from 'debug';
 import { buildQuery } from '../util';
 import { ForecastData, TrafficData, NewsFeedData, Headline } from '../../common/types';
 
-type Resolver<T> = () => Promise<T>;
+type Resolver<T> = (...args: any[]) => Promise<T>;
 
 interface Coordinates {
   latitude: number;
@@ -14,7 +14,7 @@ interface Coordinates {
  * Gets coordinates (latitude and longitude) for given address.
  * @param address address to find coordinates of
  */
-const getCoordinates = async (address: string) => {
+const getCoordinates: Resolver<Coordinates> = async (address: string) => {
   const debug = createDebug('graphql:getCoordinates');
   debug('start');
   const { GEOCODING_API_KEY } = process.env;
@@ -123,7 +123,9 @@ const getNewsFeed: Resolver<NewsFeedData> = async () => {
     throw new Error('Non-OK status returned from query.');
   }
 
-  const headlines = articles.slice(0, 4).map(({ title, description }: Headline) => ({ title, description }));
+  const headlines = articles
+    .slice(0, 4)
+    .map(({ title, description }: Headline) => ({ title, description }));
   const result = { feed: headlines };
   debug('result:  ', result);
   debug('end');

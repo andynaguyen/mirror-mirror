@@ -6,6 +6,7 @@ import { join } from 'path';
 import schema from './graphql/schema';
 import { index } from './routes';
 import handleConnection from './socket';
+import { events } from '../common/socket';
 
 const port = process.env.PORT || '3000';
 const app = express();
@@ -31,7 +32,7 @@ const server = createServer(app);
 
 // SocketIO
 const io = SocketIO(server);
-io.on('connection', handleConnection);
+io.on(events.CONNECTION, handleConnection);
 
 // Start server
 server.listen(port, () => console.log(`Listening at http://localhost:${port}/`));

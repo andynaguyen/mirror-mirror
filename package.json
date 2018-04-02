@@ -32,6 +32,7 @@
     "express-graphql": "^0.6.12",
     "graphql": "^0.13.2",
     "moment": "^2.18.0",
+    "opencv4nodejs": "^4.0.0",
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",
     "react-dom": "^16.2.0",
@@ -43,7 +44,7 @@
     "build:client": "parcel build client/index.html --public-url ./ --out-dir dist/static",
     "build:server": "tsc",
     "build": "yarn build:client && yarn build:server",
-    "clean": "rm -rf .cache && rm -rf dist",
+    "clean": "rm -rf .cache && rm -rf dist && rm -rf coverage",
     "reload": "yarn build && node -r dotenv/config dist/server/app.js",
     "start": "nodemon",
     "start:static": "parcel client/index.html -p 3000",
@@ -54,12 +55,6 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"]
   }
 }
