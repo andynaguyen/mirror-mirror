@@ -84,7 +84,10 @@ describe('getForecast', () => {
       },
     };
     axios.get = jest.fn(
-      (addr) => (addr === endpoint ? Promise.resolve(mockForecastResponse) : Promise.resolve(mockCoordinatesResponse)),
+      (addr) =>
+        addr === endpoint
+          ? Promise.resolve(mockForecastResponse)
+          : Promise.resolve(mockCoordinatesResponse),
     );
 
     const forecastData = await getForecast();
@@ -101,7 +104,8 @@ describe('getForecast', () => {
 
 describe('getTraffic', () => {
   const endpoint =
-    'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=destination&key=key&origins=address&units=imperial'; // tslint:disable-line
+    'https://maps.googleapis.com/maps/api/distancematrix/json?' +
+    'destinations=destination&key=key&origins=address&units=imperial';
   beforeEach(() => {
     process.env = {
       DESTINATION: 'destination',

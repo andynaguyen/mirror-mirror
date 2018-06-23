@@ -1,4 +1,4 @@
-import { GraphQLString, GraphQLSchema, GraphQLObjectType, GraphQLList } from 'graphql';
+import { GraphQLString, GraphQLObjectType, GraphQLList } from 'graphql';
 
 const Forecast = new GraphQLObjectType({
   name: 'ForecastQuery',

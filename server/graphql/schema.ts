@@ -2,11 +2,6 @@ import { GraphQLSchema, GraphQLObjectType } from 'graphql';
 import { Forecast, Traffic, NewsFeed } from './types';
 import { getForecast, getTraffic, getNewsFeed } from './resolvers';
 
-type GraphQLQuery = {
-  type: GraphQLObjectType;
-  resolve: () => Promise<object>;
-};
-
 const queries = {
   traffic: {
     type: Traffic,

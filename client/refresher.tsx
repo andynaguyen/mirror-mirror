@@ -48,7 +48,7 @@ const withRefresh = (options: RefreshOptions<any>, WrappedComponent: Component) 
       } catch {
         this.setState({ data: options.defaultState });
       }
-    }; // tslint:disable-line
+    }
 
     public render() {
       return <WrappedComponent {...this.state} {...this.props} />;

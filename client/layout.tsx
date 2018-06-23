@@ -56,7 +56,7 @@ class Layout extends React.Component {
     this.setState({
       displayNewsFeed: visible,
     });
-  }; // tslint:disable-line
+  }
 }
 
 export default Layout;

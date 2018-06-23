@@ -1,5 +1,4 @@
 import moment from 'moment';
-import * as React from 'react';
 import Clock from './Clock';
 import withRefresh, { RefreshOptions } from '../../refresher';
 import { ClockData } from './types';

@@ -27,7 +27,6 @@ describe('refresher', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  // tslint:disable-next-line
   it("should increment component state's counter every 5 seconds", () => {
     const state = { counter: 10 };
     const mockRefresh = jest.fn(() => {

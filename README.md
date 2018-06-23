@@ -10,27 +10,27 @@ Smart mirror with real time face detection.
 
 ## Setup & Start
 
-1.  Install the requirements above.
+1. Install the requirements above.
 
-2.  Fill out the `.env` file.
+1. Fill out the `.env` file.
 
-```sh
-ADDRESS=                    # address used for weather forecast and commute origin
-DESTINATION=                # destination used for commute
-DARK_SKY_KEY=               # API key for Dark Sky API
-DISTANCE_MATRIX_API_KEY=    # API key for Google's Distance Matrix API
-GEOCODING_API_KEY=          # API key for Google's Geocoding API
-NEWS_API_KEY=               # API key for News API
-DEBUG=                      # namespaces to use for debugging
-```
+    ```sh
+    ADDRESS=                    # address used for weather forecast and commute origin
+    DESTINATION=                # destination used for commute
+    DARK_SKY_KEY=               # API key for Dark Sky API
+    DISTANCE_MATRIX_API_KEY=    # API key for Google's Distance Matrix API
+    GEOCODING_API_KEY=          # API key for Google's Geocoding API
+    NEWS_API_KEY=               # API key for News API
+    DEBUG=                      # namespaces to use for debugging
+    ```
 
-3.  Run the following commands to install node dependencies and build the app:
+1. Run the following commands to install node dependencies and build the app:
 
-```sh
-export OPENCV4NODEJS_DISABLE_AUTOBUILD=1
-yarn
-yarn build
-```
+    ```sh
+    export OPENCV4NODEJS_DISABLE_AUTOBUILD=1
+    yarn
+    yarn build
+    ```
 
 The app is now ready to be ran: `yarn start`. Open browser to http://localhost:3000 and allow access to camera.
 

@@ -6,18 +6,18 @@ import { ForecastProps } from './types';
 const ICON_MAP = {
   'clear-day': 'wi wi-day-sunny',
   'clear-night': 'wi wi-night-clear',
-  cloudy: 'wi wi-cloudy',
-  default: 'wi wi-na',
-  fog: 'wi wi-fog',
-  hail: 'wi wi-hail',
+  'cloudy': 'wi wi-cloudy',
+  'default': 'wi wi-na',
+  'fog': 'wi wi-fog',
+  'hail': 'wi wi-hail',
   'partly-cloudy-day': 'wi wi-day-cloudy',
   'partly-cloudy-night': 'wi wi-night-cloudy',
-  rain: 'wi wi-rain',
-  sleet: 'wi wi-sleet',
-  snow: 'wi wi-snow',
-  thunderstorm: 'wi wi-thunderstorm',
-  tornado: 'wi wi-tornado',
-  wind: 'wi wi-strong-wind',
+  'rain': 'wi wi-rain',
+  'sleet': 'wi wi-sleet',
+  'snow': 'wi wi-snow',
+  'thunderstorm': 'wi wi-thunderstorm',
+  'tornado': 'wi wi-tornado',
+  'wind': 'wi wi-strong-wind',
 };
 
 const Temperature = styled.div`
